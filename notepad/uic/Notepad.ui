@@ -26,83 +26,132 @@
    <string>NotePad</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../res/resource.qrc">
+   <iconset resource="../qrc/resource.qrc">
     <normaloff>:/icons/C:/Users/Ryzen/PycharmProjects/notepad/notepad/icons/description_black_24dp.svg</normaloff>:/icons/C:/Users/Ryzen/PycharmProjects/notepad/notepad/icons/description_black_24dp.svg</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:0, y2:0, stop:0 rgba(81, 0, 135, 255),stop:0.427447 rgba(41, 61, 132, 235), stop:1 rgba(155, 79, 165, 255));
-font-family: Rubik, sans-serif;</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QFrame" name="main">
     <property name="geometry">
      <rect>
-      <x>12</x>
-      <y>7</y>
+      <x>10</x>
+      <y>10</y>
       <width>421</width>
       <height>581</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QFrame" name="body">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(255, 255, 255, 30);
+    <property name="styleSheet">
+     <string notr="true">QFrame {
+background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:0, y2:0, stop:0 rgba(81, 0, 135, 255),stop:0.427447 rgba(41, 61, 132, 235), stop:1 rgba(155, 79, 165, 255));
+font-family: Rubik, sans-serif;
+color: white;
+border-radius: 10px;
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>401</width>
+       <height>541</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QFrame" name="body">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(255, 255, 255, 30);
 border: 2px solid rgb(255, 255, 255);
 border-radius: 7px;
 color: white;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <widget class="QLabel" name="main_information">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>20</y>
-          <width>221</width>
-          <height>71</height>
-         </rect>
         </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgba(255, 255, 255, 30);
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLabel" name="main_information">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>20</y>
+           <width>221</width>
+           <height>71</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 30);
 border: none;
 font-size: 20pt;</string>
-        </property>
-        <property name="text">
-         <string>Hello, my friend</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
+         </property>
+         <property name="text">
+          <string>Hello, my friend</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </widget>
-      </widget>
-     </item>
-     <item>
-      <widget class="QFrame" name="tasks">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(255, 255, 255, 30);
+      </item>
+      <item>
+       <widget class="QFrame" name="tasks">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(255, 255, 255, 30);
 border: 1px solid rgba(255, 255, 255, 40);
 border-radius: 7px;
 color: white;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="close">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>0</y>
+       <width>75</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: none;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../qrc/resource.qrc">
+       <normaloff>:/icons/close_white_24dp.svg</normaloff>:/icons/close_white_24dp.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
  <resources>
-  <include location="../res/resource.qrc"/>
+  <include location="../qrc/resource.qrc"/>
  </resources>
  <connections/>
 </ui>

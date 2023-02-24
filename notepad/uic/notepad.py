@@ -19,18 +19,25 @@ class UiNotepad(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(
             ":/icons/C:/Users/Ryzen/PycharmProjects/notepad/notepad/icons/description_black_24dp.svg"),
-            QtGui.QIcon.Mode.Normal,
-            QtGui.QIcon.State.Off)
+            QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         Notepad.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(parent=Notepad)
-        self.centralwidget.setStyleSheet("background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:0, y2:0, "
-                                         "stop:0 rgba(81,"
-                                         "0, 135, 255),stop:0.427447 rgba(41, 61, 132, 235), stop:1 rgba(155, 79, "
-                                         "165, 255));\n"
-                                         "font-family: Rubik, sans-serif;")
         self.centralwidget.setObjectName("centralwidget")
-        self.layoutWidget = QtWidgets.QWidget(parent=self.centralwidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(12, 7, 421, 581))
+        self.main = QtWidgets.QFrame(parent=self.centralwidget)
+        self.main.setGeometry(QtCore.QRect(10, 10, 421, 581))
+        self.main.setStyleSheet("QFrame {\n"
+                                "background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:0, y2:0, stop:0 rgba("
+                                "81, 0, 135, 255),stop:0.427447 rgba(41, 61, 132, 235), stop:1 rgba(155, 79, 165, "
+                                "255));\n"
+                                "font-family: Rubik, sans-serif;\n"
+                                "color: white;\n"
+                                "border-radius: 10px;\n"
+                                "}")
+        self.main.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.main.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.main.setObjectName("main")
+        self.layoutWidget = QtWidgets.QWidget(parent=self.main)
+        self.layoutWidget.setGeometry(QtCore.QRect(10, 30, 401, 541))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -60,10 +67,20 @@ class UiNotepad(object):
         self.tasks.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.tasks.setObjectName("tasks")
         self.verticalLayout.addWidget(self.tasks)
+        self.close = QtWidgets.QPushButton(parent=self.main)
+        self.close.setGeometry(QtCore.QRect(360, 0, 75, 30))
+        self.close.setStyleSheet("border: none;")
+        self.close.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(
+            ":/icons/C:/Users/Ryzen/PycharmProjects/notepad/notepad/icons/close_white_24dp.svg"),
+            QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.close.setIcon(icon1)
+        self.close.setIconSize(QtCore.QSize(24, 24))
+        self.close.setObjectName("close")
         Notepad.setCentralWidget(self.centralwidget)
 
         self.retranslate_ui(Notepad)
-
         QtCore.QMetaObject.connectSlotsByName(Notepad)
 
     def retranslate_ui(self, Notepad):
