@@ -23,9 +23,12 @@ class NotepadConfig:
     def get_values(self):
         return (value.lower() for e in self.readnotes() for value in tuple(e.values())[:2])
 
-    @staticmethod
-    def append_data(__obj: list, title: str, note: str) -> None:
-        __obj.append({'title': title, 'note': note, 'date': datetime.now().strftime('%d.%m.%Y')})
+    @property
+    def current_date(self):
+        return datetime.now().strftime('%d.%m.%Y')
+
+    def append_data(self, __obj: list, title: str, note: str) -> None:
+        __obj.append({'title': title, 'note': note, 'date': self.current_date})
 
     @property
     def get_count_notes(self) -> int:
