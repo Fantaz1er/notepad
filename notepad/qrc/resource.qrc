@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="icons">
-    <file>C:\Users\Ryzen\PycharmProjects\notepad\notepad\icons\close_white_24dp.svg</file>
-    <file>C:\Users\Ryzen\PycharmProjects\notepad\notepad\icons\description_black_24dp.svg</file>
-    <file>C:\Users\Ryzen\PycharmProjects\notepad\notepad\icons\delete_white_24dp.svg</file>
-  </qresource>
-</RCC>
