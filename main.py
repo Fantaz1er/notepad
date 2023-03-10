@@ -1,21 +1,41 @@
 from sys import argv, exit
-from PyQt6.QtWidgets import QMainWindow, QApplication, QMessageBox, QListWidgetItem
-from PyQt6.QtGui import QFontDatabase
-from PyQt6.QtCore import Qt
+from PyQt5.QtWidgets import QMainWindow, QWidget, QApplication, QMessageBox, QListWidgetItem, qApp
+from PyQt5.QtGui import QFontDatabase
+from PyQt5.QtCore import Qt
 from webbrowser import open_new_tab
 
-from notepad_ui import UiNotepad
+from ui.notepad_ui import UiNotepad
 from config import NotepadConfig
-from note_ui import UiNote
+from ui.note_ui import UiNote
 
 
-class NoteWindow(QMainWindow, NotepadConfig):
+class PressEvent:
     def __init__(self):
-        super(NoteWindow, self).__init__()
+        self.old_pos = None
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.old_pos = event.pos()
+
+    def mouseReleaseEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.old_pos = None
+
+    def mouseMoveEvent(self, event):
+        if not self.old_pos:
+            return
+        delta = event.pos() - self.old_pos
+        self.move(self.pos() + delta)
+
+
+class NoteWindow(QWidget, NotepadConfig, PressEvent):
+    def __init__(self):
+        super().__init__()
 
         self.setWindowFlag(Qt.WindowType.FramelessWindowHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         QFontDatabase.addApplicationFont('fonts/Rubik-Regular.ttf')
+        self.setWindowModality(Qt.WindowModality.ApplicationModal)
 
         self.note_ui = UiNote()
         self.note_ui.setup_ui(self)
@@ -30,9 +50,9 @@ class NoteWindow(QMainWindow, NotepadConfig):
             pass
 
 
-class Notepad(QMainWindow, NotepadConfig):
+class Notepad(QMainWindow, NotepadConfig, PressEvent):
     def __init__(self):
-        super(Notepad, self).__init__()
+        super().__init__()
 
         self.setWindowFlag(Qt.WindowType.FramelessWindowHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
@@ -43,7 +63,7 @@ class Notepad(QMainWindow, NotepadConfig):
 
         self.note_window = NoteWindow()
 
-        self.main_ui.close.clicked.connect(self.close)
+        self.main_ui.close.clicked.connect(qApp.quit)
         self.main_ui.delete_note.clicked.connect(self.clear)
         self.main_ui.save.clicked.connect(self.savenote)
         self.main_ui.logo.clicked.connect(lambda: open_new_tab('https://github.com/Fantaz1er/notepad'))
@@ -80,7 +100,7 @@ class Notepad(QMainWindow, NotepadConfig):
         self.main_ui.title.setText('')
         self.main_ui.note.setPlainText('')
 
-    def delete_note(self, id_note: int):
+    def delete_note(self, id_note: int) -> None:
         checkbox = QMessageBox.information(
             self, 'Notepad',
             'Вы действительно хотите удалить запись?',
@@ -101,24 +121,20 @@ class Notepad(QMainWindow, NotepadConfig):
         else:
             self.note_window.close()
 
-    def edit(self, id_note: int):
+    def edit(self, id_note: int) -> None:
         title, note = self.note_window.note_ui.title.text(), self.note_window.note_ui.note.toPlainText()
         if not title or not note:
             QMessageBox.warning(self, 'Notepad', 'Не все поля заполнены. Заполните все формы для сохранения!')
         else:
-            data: list = self.readnotes()
-            values = self.get_values()
-            if title.lower() in values or note.lower() in values:
-                QMessageBox.warning(self, 'Notepad', 'Заметка с таким заголовком или текстом уже существует!')
-            else:
-                data[id_note] = {'title': title, 'note': note, 'date': self.current_date}
-                self.dump_note(data)
-                self.main_ui.notes.item(id_note).setText(
-                    f"{title.capitalize()}\n\n\n{self.current_date}\t{' '.join(note.split(' ')[:2])}...")
-                self.note_window.close()
+            data = self.readnotes()
+            data[id_note] = {'title': title, 'note': note, 'date': self.current_date}
+            self.dump_note(data)
+            self.main_ui.notes.item(id_note).setText(
+                f"{title.capitalize()}\n\n\n{self.current_date}\t{' '.join(note.split(' ')[:2])}...")
+            self.note_window.close()
 
 
 if __name__ == "__main__":
     application, main_window = QApplication(argv), Notepad()
     main_window.show()
-    exit(application.exec())
+    exit(application.exec_())

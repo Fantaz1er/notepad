@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>../icons/close_white_24dp.svg</file>
+    <file>../icons/delete_white_24dp.svg</file>
+    <file>../icons/description_black_24dp.svg</file>
+    <file>../icons/description_white_24dp.svg</file>
+  </qresource>
+</RCC>
