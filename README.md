@@ -1,1 +1,1 @@
-# Notepad 0.1.0
+# Notepad 0.2.0
